@@ -262,14 +262,6 @@ section{position:relative;z-index:3;padding:130px 6vw;}
 .t-date{font-weight:800;color:var(--rose-deep);font-size:.85rem;letter-spacing:1px;}
 .t-title{font-family:var(--font-display);font-size:1.35rem;margin:8px 0 6px;color:var(--plum);}
 .t-desc{color:var(--plum-soft);font-size:.95rem;line-height:1.85;}
-.t-photo{margin-top:14px;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;}
-.t-photo img{width:100%;height:100%;object-fit:cover;}
-.t-photo.placeholder{
-  background:linear-gradient(135deg,var(--lavender),var(--blush));
-  display:flex;align-items:center;justify-content:center;
-  color:var(--plum-soft);font-size:.85rem;text-align:center;padding:10px;
-}
-
 @media(max-width:760px){
   .timeline::before{right:20px;}
   .t-item, .t-item:nth-child(odd), .t-item:nth-child(even){width:100%;margin:0 0 0 0;padding:0 0 50px 52px;text-align:left;}
@@ -277,52 +269,19 @@ section{position:relative;z-index:3;padding:130px 6vw;}
 }
 
 /* ============================= */
-/* GALLERY */
+/* APOLOGY LINES */
 /* ============================= */
-.masonry{
-  column-count:3;column-gap:18px;max-width:1100px;margin:0 auto;
+.apology-list{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+.apology-line{
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:1px solid var(--glass-border);border-radius:var(--radius-md);
+  padding:20px 26px;box-shadow:var(--shadow-soft);
+  font-size:1.05rem;line-height:1.9;color:var(--plum);
+  display:flex;align-items:flex-start;gap:12px;
+  transition:transform .4s var(--ease);
 }
-@media(max-width:900px){.masonry{column-count:2;}}
-@media(max-width:560px){.masonry{column-count:1;}}
-.m-item{
-  break-inside:avoid;margin-bottom:18px;border-radius:var(--radius-md);
-  overflow:hidden;position:relative;cursor:pointer;
-  box-shadow:var(--shadow-soft);
-  transform:translateY(0);
-  transition:transform .5s var(--ease);
-}
-.m-item:hover{transform:translateY(-8px);}
-.m-item img{width:100%;display:block;transition:transform .7s var(--ease);}
-.m-item:hover img{transform:scale(1.08);}
-.m-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 50%,rgba(61,31,61,.75));
-  opacity:0;transition:opacity .4s var(--ease);
-  display:flex;align-items:flex-end;padding:16px;
-  color:#fff;font-size:.9rem;font-weight:600;
-}
-.m-item:hover .m-overlay{opacity:1;}
-.m-item.placeholder{
-  aspect-ratio:3/4;background:linear-gradient(150deg,var(--lavender),var(--blush-2));
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;
-  color:var(--plum-soft);text-align:center;padding:20px;font-size:.85rem;
-}
-.m-item.placeholder .plus{font-size:1.8rem;color:var(--rose);}
-
-/* Lightbox */
-.lightbox{
-  position:fixed;inset:0;z-index:2000;background:rgba(30,15,30,.9);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;transition:opacity .4s var(--ease), visibility .4s;
-  backdrop-filter:blur(6px);
-}
-.lightbox.open{opacity:1;visibility:visible;}
-.lightbox img{max-width:88vw;max-height:82vh;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.5);}
-.lightbox-close{
-  position:absolute;top:24px;left:24px;width:46px;height:46px;border-radius:50%;
-  background:rgba(255,255,255,.15);color:#fff;font-size:1.4rem;
-  display:flex;align-items:center;justify-content:center;
-}
+.apology-line:hover{transform:translateX(-4px);}
+.apology-line .ic{color:var(--rose);font-size:1.2rem;flex-shrink:0;margin-top:2px;}
 
 /* ============================= */
 /* REASONS */
@@ -495,8 +454,7 @@ footer{
       <div class="t-card">
         <div class="t-date">اولین ملاقات</div>
         <div class="t-title">جایی که همه‌چیز شروع شد</div>
-        <p class="t-desc">می‌تونی این متن رو با خاطره واقعی اولین دیدارتون عوض کنی؛ همون لحظه‌ای که همه‌چیز فرق کرد.</p>
-        <div class="t-photo placeholder">📷 یک عکس از این خاطره اینجا بذار</div>
+        <p class="t-desc">می‌تونی این متن رو با خاطره واقعی اولین دیدارتون عوض کنی؛ همون لحظه‌ای که همه‌چیز فرق کرد و دنیا یک رنگ دیگه شد.</p>
       </div>
     </div>
     <div class="t-item">
@@ -504,8 +462,7 @@ footer{
       <div class="t-card">
         <div class="t-date">اولین قرار</div>
         <div class="t-title">لحظه‌ای که قلبم لرزید</div>
-        <p class="t-desc">اینجا می‌تونی داستان اولین قرارتون رو بنویسی؛ جایی که فهمیدی این آدم فرق داره.</p>
-        <div class="t-photo"><img src="photo1.jpg" alt="اولین قرار"></div>
+        <p class="t-desc">اینجا می‌تونی داستان اولین قرارتون رو بنویسی؛ جایی که فهمیدی این آدم فرق داره و دیگه نمی‌خوای از کنارش تکون بخوری.</p>
       </div>
     </div>
     <div class="t-item">
@@ -513,8 +470,7 @@ footer{
       <div class="t-card">
         <div class="t-date">یک خاطره خاص</div>
         <div class="t-title">روزی که هیچ‌وقت یادم نمی‌ره</div>
-        <p class="t-desc">یک خاطره خاص دیگه رو اینجا اضافه کن؛ سفر، جشن تولد، یا هر لحظه‌ای که برات مهمه.</p>
-        <div class="t-photo"><img src="photo2.jpg" alt="خاطره خاص"></div>
+        <p class="t-desc">یک خاطره خاص دیگه رو اینجا اضافه کن؛ سفر، جشن تولد، یا هر لحظه‌ای که برات مهمه و هنوز با یادش لبخند می‌زنی.</p>
       </div>
     </div>
     <div class="t-item">
@@ -523,33 +479,25 @@ footer{
         <div class="t-date">امروز</div>
         <div class="t-title">همچنان، هر روز بیشتر</div>
         <p class="t-desc">و این داستان همچنان ادامه داره... چون هر روز که می‌گذره، بیشتر از دیروز عاشقتم.</p>
-        <div class="t-photo placeholder">📷 جدیدترین عکستون رو اینجا بذار</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= GALLERY ================= -->
-<section id="gallery">
+<!-- ================= APOLOGY LINES ================= -->
+<section id="apology">
   <div class="section-head reveal">
-    <div class="eyebrow">🩷 گالری عکس‌ها</div>
-    <h2 class="section-title">لحظه‌های ما</h2>
-    <p class="section-sub">روی هر عکس کلیک کن تا بزرگ‌تر ببینیش.</p>
+    <div class="eyebrow">🤍 ببخشید</div>
+    <h2 class="section-title">چند خط کوتاه، قبل از نامه</h2>
   </div>
-  <div class="masonry" id="masonry">
-    <div class="m-item" data-full="photo1.jpg"><img src="photo1.jpg" alt="خاطره"><div class="m-overlay">لحظه‌ای دوست‌داشتنی</div></div>
-    <div class="m-item" data-full="photo2.jpg"><img src="photo2.jpg" alt="خاطره"><div class="m-overlay">لبخند همیشگی تو</div></div>
-    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo3.jpg)</div>
-    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo4.jpg)</div>
-    <div class="m-item" data-full="photo1.jpg"><img src="photo1.jpg" alt="خاطره"><div class="m-overlay">همیشه توی قلبم</div></div>
-    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo5.jpg)</div>
+  <div class="apology-list">
+    <div class="apology-line reveal"><span class="ic">•</span> ببخشید بابت روزهایی که به‌جای شنیدن، فقط جواب دادم.</div>
+    <div class="apology-line reveal"><span class="ic">•</span> ببخشید اگه بی‌توجهیم رنگ چهره‌ت رو عوض کرد.</div>
+    <div class="apology-line reveal"><span class="ic">•</span> ببخشید اگه دیر فهمیدم چقدر یک جمله ساده می‌تونه بهت آرامش بده.</div>
+    <div class="apology-line reveal"><span class="ic">•</span> ببخشید بابت هر سکوتی که باید حرف می‌زدم و نزدم.</div>
+    <div class="apology-line reveal"><span class="ic">•</span> ممنونم که با همه این‌ها، هنوز کنارم موندی.</div>
   </div>
 </section>
-
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose">✕</button>
-  <img id="lightboxImg" src="" alt="نمایش بزرگ">
-</div>
 
 <!-- ================= REASONS ================= -->
 <section id="reasons">
@@ -682,18 +630,6 @@ document.getElementById('hero').addEventListener('mousemove', (e) => {
   const y = (e.clientY/h - 0.5) * 16;
   locket.style.transform = `translate(${x}px, ${y}px)`;
 });
-
-// ---------- Lightbox ----------
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-document.querySelectorAll('.m-item[data-full]').forEach(item => {
-  item.addEventListener('click', () => {
-    lightboxImg.src = item.getAttribute('data-full');
-    lightbox.classList.add('open');
-  });
-});
-document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
-lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('open'); });
 
 // ---------- Quotes ----------
 const quotes = [
