@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برای تو، همیشه 🩷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Lalezar&display=swap" rel="stylesheet">
+<style>
+/* ============================= */
+/* TOKENS */
+/* ============================= */
+:root{
+  --cream:#FFF8FB;
+  --blush:#FFD9E7;
+  --blush-2:#FFC1DA;
+  --lavender:#E7D6F6;
+  --lavender-2:#D8BEF2;
+  --rose:#FF6FA0;
+  --rose-deep:#E8447A;
+  --plum:#3D1F3D;
+  --plum-soft:#6B4066;
+  --gold:#F0C86E;
+  --white:#ffffff;
+  --glass: rgba(255,255,255,0.45);
+  --glass-border: rgba(255,255,255,0.65);
+  --shadow-soft: 0 20px 60px rgba(107,64,102,0.18);
+  --radius-lg: 32px;
+  --radius-md: 22px;
+  --radius-sm: 14px;
+  --font-display: 'Lalezar', 'Vazirmatn', sans-serif;
+  --font-body: 'Vazirmatn', sans-serif;
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+[data-theme="dark"]{
+  --cream:#1B0F1E;
+  --blush:#2A1730;
+  --blush-2:#33193A;
+  --lavender:#241333;
+  --lavender-2:#2E1A40;
+  --rose:#FF7FAE;
+  --rose-deep:#FF9DC4;
+  --plum:#FBEFFA;
+  --plum-soft:#E3C9E8;
+  --gold:#F7D488;
+  --white:#241228;
+  --glass: rgba(40,20,45,0.55);
+  --glass-border: rgba(255,255,255,0.12);
+  --shadow-soft: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-body);
+  background:linear-gradient(180deg,var(--cream),var(--blush) 8%,var(--cream) 20%);
+  color:var(--plum);
+  overflow-x:hidden;
+  transition:background .6s var(--ease), color .6s var(--ease);
+}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+a{color:inherit;}
+::selection{background:var(--rose);color:#fff;}
+
+/* ============================= */
+/* SCROLLBAR */
+/* ============================= */
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:10px;}
+
+/* ============================= */
+/* LOADER */
+/* ============================= */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(circle at 50% 40%,var(--lavender),var(--cream) 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .9s var(--ease), visibility .9s var(--ease);
+}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.loader-heart{
+  width:70px;height:70px;position:relative;
+  transform:rotate(45deg);
+  animation:loaderPulse 1s ease-in-out infinite;
+}
+.loader-heart::before,.loader-heart::after{
+  content:'';position:absolute;width:70px;height:70px;border-radius:50%;background:var(--rose);
+}
+.loader-heart::before{left:-35px;}
+.loader-heart::after{top:-35px;}
+@keyframes loaderPulse{0%,100%{transform:rotate(45deg) scale(1);}50%{transform:rotate(45deg) scale(0.82);}}
+.loader-text{margin-top:28px;font-family:var(--font-display);font-size:1.3rem;color:var(--plum-soft);letter-spacing:1px;}
+
+/* ============================= */
+/* AMBIENT PARTICLES */
+/* ============================= */
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;}
+.floaty{
+  position:absolute;bottom:-10%;
+  opacity:.55;
+  animation:floatUp linear infinite;
+  will-change:transform;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0;}
+  10%{opacity:.6;}
+  90%{opacity:.5;}
+  100%{transform:translateY(-115vh) translateX(var(--drift,20px)) rotate(360deg);opacity:0;}
+}
+
+/* ============================= */
+/* TOP CONTROLS */
+/* ============================= */
+.controls{
+  position:fixed;top:22px;left:22px;z-index:1000;
+  display:flex;gap:10px;
+}
+.ctrl-btn{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  box-shadow:var(--shadow-soft);
+  transition:transform .35s var(--ease);
+}
+.ctrl-btn:hover{transform:scale(1.1) rotate(-6deg);}
+.ctrl-btn:active{transform:scale(0.92);}
+
+/* ============================= */
+/* SECTION SHARED */
+/* ============================= */
+section{position:relative;z-index:3;padding:130px 6vw;}
+.section-head{text-align:center;max-width:680px;margin:0 auto 64px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.8rem;letter-spacing:2px;color:var(--rose-deep);
+  background:var(--glass);border:1px solid var(--glass-border);
+  padding:8px 18px;border-radius:100px;backdrop-filter:blur(10px);
+  margin-bottom:18px;font-weight:600;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  color:var(--plum);
+  line-height:1.3;
+}
+.section-sub{
+  margin-top:14px;color:var(--plum-soft);
+  font-size:1.05rem;line-height:1.9;
+}
+
+/* ============================= */
+/* HERO */
+/* ============================= */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:100px 6vw 60px;
+  position:relative;
+}
+.hero-eyebrow{
+  font-family:var(--font-body);font-weight:700;letter-spacing:3px;
+  color:var(--rose-deep);font-size:.85rem;margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow .line{width:34px;height:1px;background:var(--rose-deep);display:inline-block;}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.6rem,8vw,5.6rem);
+  line-height:1.25;
+  color:var(--plum);
+  max-width:920px;
+}
+.hero-title span{
+  color:var(--rose);
+  position:relative;
+  display:inline-block;
+}
+.hero-subtitle{
+  margin-top:22px;max-width:560px;color:var(--plum-soft);
+  font-size:1.1rem;line-height:2;
+}
+
+/* Hero locket - signature element */
+.locket{
+  margin-top:56px;position:relative;
+  width:min(560px,86vw);height:340px;
+  display:flex;align-items:center;justify-content:center;
+}
+.locket-frame{
+  position:absolute;
+  width:230px;height:290px;
+  border-radius:20px;
+  background:var(--white);
+  padding:14px 14px 34px;
+  box-shadow:var(--shadow-soft);
+  border:1px solid var(--glass-border);
+  transition:transform .5s var(--ease);
+}
+.locket-frame img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.locket-frame .cap{
+  position:absolute;bottom:8px;left:0;right:0;text-align:center;
+  font-family:var(--font-display);color:var(--plum-soft);font-size:.9rem;
+}
+.locket-frame.a{transform:rotate(-9deg) translateX(-58px);z-index:2;}
+.locket-frame.b{transform:rotate(7deg) translateX(58px);z-index:1;}
+.locket:hover .locket-frame.a{transform:rotate(-13deg) translateX(-68px) translateY(-6px);}
+.locket:hover .locket-frame.b{transform:rotate(11deg) translateX(68px) translateY(-6px);}
+.locket-heart{
+  position:absolute;z-index:3;top:-18px;
+  font-size:2rem;filter:drop-shadow(0 8px 14px rgba(232,68,122,.35));
+  animation:bob 3.4s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(6deg);}}
+
+.scroll-cue{
+  margin-top:58px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  padding:12px 22px;border-radius:100px;backdrop-filter:blur(10px);
+  font-size:.85rem;color:var(--plum-soft);font-weight:600;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.scroll-cue:hover{transform:translateY(-3px);box-shadow:var(--shadow-soft);}
+.scroll-cue .chev{animation:chevBounce 1.6s ease-in-out infinite;}
+@keyframes chevBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+/* ============================= */
+/* TIMELINE */
+/* ============================= */
+.timeline{max-width:820px;margin:0 auto;position:relative;}
+.timeline::before{
+  content:'';position:absolute;top:0;bottom:0;right:calc(50% - 1px);
+  width:2px;background:linear-gradient(180deg,transparent,var(--rose) 8%,var(--rose) 92%,transparent);
+}
+.t-item{
+  width:50%;padding:0 40px 70px;position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity .8s var(--ease), transform .8s var(--ease);
+}
+.t-item.visible{opacity:1;transform:translateY(0);}
+.t-item:nth-child(odd){margin-right:50%;text-align:left;}
+.t-item:nth-child(even){margin-left:50%;text-align:left;}
+.t-dot{
+  position:absolute;top:6px;width:16px;height:16px;border-radius:50%;
+  background:var(--rose);box-shadow:0 0 0 6px var(--blush-2);
+}
+.t-item:nth-child(odd) .t-dot{right:-9px;}
+.t-item:nth-child(even) .t-dot{left:-9px;}
+.t-card{
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-md);
+  padding:26px 28px;box-shadow:var(--shadow-soft);
+  transition:transform .4s var(--ease);
+}
+.t-card:hover{transform:translateY(-6px);}
+.t-date{font-weight:800;color:var(--rose-deep);font-size:.85rem;letter-spacing:1px;}
+.t-title{font-family:var(--font-display);font-size:1.35rem;margin:8px 0 6px;color:var(--plum);}
+.t-desc{color:var(--plum-soft);font-size:.95rem;line-height:1.85;}
+.t-photo{margin-top:14px;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;}
+.t-photo img{width:100%;height:100%;object-fit:cover;}
+.t-photo.placeholder{
+  background:linear-gradient(135deg,var(--lavender),var(--blush));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--plum-soft);font-size:.85rem;text-align:center;padding:10px;
+}
+
+@media(max-width:760px){
+  .timeline::before{right:20px;}
+  .t-item, .t-item:nth-child(odd), .t-item:nth-child(even){width:100%;margin:0 0 0 0;padding:0 0 50px 52px;text-align:left;}
+  .t-item:nth-child(odd) .t-dot,.t-item:nth-child(even) .t-dot{right:auto;left:12px;}
+}
+
+/* ============================= */
+/* GALLERY */
+/* ============================= */
+.masonry{
+  column-count:3;column-gap:18px;max-width:1100px;margin:0 auto;
+}
+@media(max-width:900px){.masonry{column-count:2;}}
+@media(max-width:560px){.masonry{column-count:1;}}
+.m-item{
+  break-inside:avoid;margin-bottom:18px;border-radius:var(--radius-md);
+  overflow:hidden;position:relative;cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  transform:translateY(0);
+  transition:transform .5s var(--ease);
+}
+.m-item:hover{transform:translateY(-8px);}
+.m-item img{width:100%;display:block;transition:transform .7s var(--ease);}
+.m-item:hover img{transform:scale(1.08);}
+.m-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(61,31,61,.75));
+  opacity:0;transition:opacity .4s var(--ease);
+  display:flex;align-items:flex-end;padding:16px;
+  color:#fff;font-size:.9rem;font-weight:600;
+}
+.m-item:hover .m-overlay{opacity:1;}
+.m-item.placeholder{
+  aspect-ratio:3/4;background:linear-gradient(150deg,var(--lavender),var(--blush-2));
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;
+  color:var(--plum-soft);text-align:center;padding:20px;font-size:.85rem;
+}
+.m-item.placeholder .plus{font-size:1.8rem;color:var(--rose);}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:2000;background:rgba(30,15,30,.9);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease), visibility .4s;
+  backdrop-filter:blur(6px);
+}
+.lightbox.open{opacity:1;visibility:visible;}
+.lightbox img{max-width:88vw;max-height:82vh;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+.lightbox-close{
+  position:absolute;top:24px;left:24px;width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.15);color:#fff;font-size:1.4rem;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ============================= */
+/* REASONS */
+/* ============================= */
+.reasons-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;max-width:1100px;margin:0 auto;
+}
+.reason-card{
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);border-radius:var(--radius-md);
+  padding:32px 26px;box-shadow:var(--shadow-soft);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+  opacity:0;transform:translateY(30px);
+}
+.reason-card.visible{opacity:1;transform:translateY(0);}
+.reason-card:hover{transform:translateY(-10px) rotate(-1deg);}
+.reason-icon{
+  width:54px;height:54px;border-radius:16px;
+  background:linear-gradient(135deg,var(--rose),var(--gold));
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  margin-bottom:18px;color:#fff;
+  box-shadow:0 10px 24px rgba(232,68,122,.35);
+}
+.reason-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:8px;}
+.reason-text{color:var(--plum-soft);font-size:.92rem;line-height:1.8;}
+
+/* ============================= */
+/* LETTER */
+/* ============================= */
+.letter-wrap{max-width:760px;margin:0 auto;position:relative;}
+.letter-card{
+  background:var(--glass);backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);
+  padding:56px 48px;box-shadow:var(--shadow-soft);
+  position:relative;
+}
+.letter-seal{
+  position:absolute;top:-26px;right:50%;transform:translateX(50%);
+  width:60px;height:60px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--rose),var(--rose-deep));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.5rem;box-shadow:0 10px 24px rgba(232,68,122,.45);
+}
+.letter-text{
+  font-size:1.12rem;line-height:2.5;color:var(--plum);
+  white-space:pre-line;
+}
+.letter-sign{
+  margin-top:30px;text-align:left;font-family:var(--font-display);
+  font-size:1.3rem;color:var(--rose-deep);
+}
+
+/* ============================= */
+/* QUOTES */
+/* ============================= */
+.quotes-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;max-width:1100px;margin:0 auto;
+}
+.quote-card{
+  background:var(--glass);backdrop-filter:blur(14px);
+  border:1px solid var(--glass-border);border-radius:var(--radius-md);
+  padding:26px 24px;box-shadow:var(--shadow-soft);
+  font-size:1.02rem;line-height:1.95;color:var(--plum);
+  position:relative;
+  transition:transform .4s var(--ease);
+}
+.quote-card:hover{transform:translateY(-6px);}
+.quote-mark{font-family:var(--font-display);font-size:2.2rem;color:var(--rose);line-height:0;display:block;margin-bottom:10px;}
+
+/* ============================= */
+/* FINAL */
+/* ============================= */
+.final{
+  text-align:center;min-height:90vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.big-heart{
+  width:150px;height:150px;position:relative;transform:rotate(45deg);
+  margin-bottom:50px;
+  animation:heartbeat 1.6s ease-in-out infinite;
+}
+.big-heart::before,.big-heart::after{
+  content:'';position:absolute;width:150px;height:150px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+}
+.big-heart::before{left:-75px;}
+.big-heart::after{top:-75px;}
+@keyframes heartbeat{0%,100%{transform:rotate(45deg) scale(1);}15%{transform:rotate(45deg) scale(1.12);}30%{transform:rotate(45deg) scale(1);}45%{transform:rotate(45deg) scale(1.08);}60%{transform:rotate(45deg) scale(1);}}
+.final-msg{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,5vw,3rem);
+  color:var(--plum);max-width:600px;
+}
+.final-sub{margin-top:16px;color:var(--plum-soft);font-size:1rem;}
+
+.falling-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+
+footer{
+  text-align:center;padding:36px 6vw 50px;color:var(--plum-soft);
+  font-size:.82rem;position:relative;z-index:3;
+}
+
+/* Reveal utility */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-heart"></div>
+  <div class="loader-text">در حال آماده‌سازی یک هدیه کوچک...</div>
+</div>
+
+<div class="ambient" id="ambient"></div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="themeToggle" title="تغییر تم" aria-label="تغییر تم روشن و تاریک">🌙</button>
+  <button class="ctrl-btn" id="musicToggle" title="پخش موزیک" aria-label="پخش و توقف موزیک">🎵</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <!-- برای فعال کردن موزیک پس‌زمینه، یک فایل mp3 با نام music.mp3 کنار این فایل html قرار بده -->
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow"><span class="line"></span> با عشق ساخته شده <span class="line"></span></div>
+  <h1 class="hero-title">تو، زیباترین <span>اتفاق</span> زندگی منی</h1>
+  <p class="hero-subtitle">این صفحه رو با تمام دلم برات ساختم؛ یک گوشه کوچیک از دنیای بزرگی که تو توی قلب من داری.</p>
+
+  <div class="locket">
+    <div class="locket-heart">💗</div>
+    <div class="locket-frame a">
+      <img src="photo1.jpg" alt="خاطره عزیز">
+      <div class="cap">یکی از قشنگ‌ترین خاطره‌ها</div>
+    </div>
+    <div class="locket-frame b">
+      <img src="photo2.jpg" alt="لبخند تو">
+      <div class="cap">لبخند تو، دنیای من</div>
+    </div>
+  </div>
+
+  <a href="#story" class="scroll-cue">
+    <span>ادامه داستان ما</span>
+    <span class="chev">↓</span>
+  </a>
+</section>
+
+<!-- ================= TIMELINE ================= -->
+<section id="story">
+  <div class="section-head reveal">
+    <div class="eyebrow">✨ داستان ما</div>
+    <h2 class="section-title">مسیری که با هم رفتیم</h2>
+    <p class="section-sub">هر خاطره یک صفحه از کتابیه که داریم با هم می‌نویسیم.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-item">
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <div class="t-date">اولین ملاقات</div>
+        <div class="t-title">جایی که همه‌چیز شروع شد</div>
+        <p class="t-desc">می‌تونی این متن رو با خاطره واقعی اولین دیدارتون عوض کنی؛ همون لحظه‌ای که همه‌چیز فرق کرد.</p>
+        <div class="t-photo placeholder">📷 یک عکس از این خاطره اینجا بذار</div>
+      </div>
+    </div>
+    <div class="t-item">
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <div class="t-date">اولین قرار</div>
+        <div class="t-title">لحظه‌ای که قلبم لرزید</div>
+        <p class="t-desc">اینجا می‌تونی داستان اولین قرارتون رو بنویسی؛ جایی که فهمیدی این آدم فرق داره.</p>
+        <div class="t-photo"><img src="photo1.jpg" alt="اولین قرار"></div>
+      </div>
+    </div>
+    <div class="t-item">
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <div class="t-date">یک خاطره خاص</div>
+        <div class="t-title">روزی که هیچ‌وقت یادم نمی‌ره</div>
+        <p class="t-desc">یک خاطره خاص دیگه رو اینجا اضافه کن؛ سفر، جشن تولد، یا هر لحظه‌ای که برات مهمه.</p>
+        <div class="t-photo"><img src="photo2.jpg" alt="خاطره خاص"></div>
+      </div>
+    </div>
+    <div class="t-item">
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <div class="t-date">امروز</div>
+        <div class="t-title">همچنان، هر روز بیشتر</div>
+        <p class="t-desc">و این داستان همچنان ادامه داره... چون هر روز که می‌گذره، بیشتر از دیروز عاشقتم.</p>
+        <div class="t-photo placeholder">📷 جدیدترین عکستون رو اینجا بذار</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="section-head reveal">
+    <div class="eyebrow">🩷 گالری عکس‌ها</div>
+    <h2 class="section-title">لحظه‌های ما</h2>
+    <p class="section-sub">روی هر عکس کلیک کن تا بزرگ‌تر ببینیش.</p>
+  </div>
+  <div class="masonry" id="masonry">
+    <div class="m-item" data-full="photo1.jpg"><img src="photo1.jpg" alt="خاطره"><div class="m-overlay">لحظه‌ای دوست‌داشتنی</div></div>
+    <div class="m-item" data-full="photo2.jpg"><img src="photo2.jpg" alt="خاطره"><div class="m-overlay">لبخند همیشگی تو</div></div>
+    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo3.jpg)</div>
+    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo4.jpg)</div>
+    <div class="m-item" data-full="photo1.jpg"><img src="photo1.jpg" alt="خاطره"><div class="m-overlay">همیشه توی قلبم</div></div>
+    <div class="m-item placeholder"><span class="plus">+</span> عکس بعدی رو اینجا اضافه کن (photo5.jpg)</div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="نمایش بزرگ">
+</div>
+
+<!-- ================= REASONS ================= -->
+<section id="reasons">
+  <div class="section-head reveal">
+    <div class="eyebrow">💌 چرا دوستت دارم</div>
+    <h2 class="section-title">چند دلیل از هزاران دلیل</h2>
+  </div>
+  <div class="reasons-grid">
+    <div class="reason-card"><div class="reason-icon">☀️</div><div class="reason-title">لبخندت</div><p class="reason-text">لبخند تو روشن‌ترین اتفاق هر روز منه؛ حتی وسط بدترین روزها.</p></div>
+    <div class="reason-card"><div class="reason-icon">🫶</div><div class="reason-title">مهربونیت</div><p class="reason-text">مهربونی تو با همه، حتی توی کوچیک‌ترین کارها، هر روز عاشق‌ترم می‌کنه.</p></div>
+    <div class="reason-card"><div class="reason-icon">🎧</div><div class="reason-title">شنونده بودنت</div><p class="reason-text">اینکه همیشه با تمام وجود گوش می‌دی، حس امن بودن رو بهم می‌ده.</p></div>
+    <div class="reason-card"><div class="reason-icon">💪</div><div class="reason-title">قدرتت</div><p class="reason-text">قدرتی که توی سخت‌ترین لحظه‌ها نشون می‌دی، برام الهام‌بخشه.</p></div>
+    <div class="reason-card"><div class="reason-icon">😂</div><div class="reason-title">خنده‌هامون</div><p class="reason-text">هیچ‌کس مثل تو نمی‌تونه با یک جمله ساده کل روزم رو بسازه.</p></div>
+    <div class="reason-card"><div class="reason-icon">🏡</div><div class="reason-title">حس خونه بودنت</div><p class="reason-text">کنار تو، هر جایی که باشیم، برام حس خونه رو داره.</p></div>
+  </div>
+</section>
+
+<!-- ================= LETTER ================= -->
+<section id="letter">
+  <div class="section-head reveal">
+    <div class="eyebrow">✍️ نامه‌ای از ته دل</div>
+    <h2 class="section-title">حرف‌هایی که باید می‌گفتم</h2>
+  </div>
+  <div class="letter-wrap reveal">
+    <div class="letter-card">
+      <div class="letter-seal">❤️</div>
+      <p class="letter-text">عزیزم...
+می‌دونم که بعضی وقت‌ها با رفتارها و اشتباهاتم باعث ناراحتی و دلخوری تو شدم.
+شاید خیلی وقت‌ها نتونستم اون آدمی باشم که لیاقتش رو داری.
+اما هیچ‌وقت ارزش و جایگاهت برای من کم نشده.
+اگر لحظه‌ای باعث اشک، ناراحتی یا دلشکستگی تو شدم از صمیم قلب ازت عذر می‌خوام.
+ممنونم که کنارم بودی و تحملم کردی.
+تو یکی از قشنگ‌ترین اتفاق‌های زندگی منی و امیدوارم بتونم جبران همه اشتباهاتم رو بکنم.
+دوستت دارم، بیشتر از چیزی که بتونم با کلمات توضیح بدم.</p>
+      <div class="letter-sign">با تمام قلبم 🤍</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTES ================= -->
+<section id="quotes">
+  <div class="section-head reveal">
+    <div class="eyebrow">🌸 جملات عاشقانه</div>
+    <h2 class="section-title">چند جمله برای تو</h2>
+  </div>
+  <div class="quotes-grid" id="quotesGrid"></div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final" id="finalSection">
+  <div class="falling-hearts" id="fallingHearts"></div>
+  <div class="big-heart"></div>
+  <h2 class="final-msg">ممنون که هنوز کنارمی ❤️</h2>
+  <p class="final-sub">این صفحه فقط یک شروع کوچیکه برای گفتن حس واقعی من.</p>
+</section>
+
+<footer>ساخته شده با ❤️ برای تو</footer>
+
+<script>
+// ---------- Loader ----------
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 700);
+});
+
+// ---------- Theme toggle (in-memory, no localStorage) ----------
+const themeToggle = document.getElementById('themeToggle');
+let isDark = false;
+themeToggle.addEventListener('click', () => {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+});
+
+// ---------- Music toggle ----------
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+let playing = false;
+musicToggle.addEventListener('click', () => {
+  if (!playing) {
+    bgMusic.play().then(() => {
+      playing = true;
+      musicToggle.textContent = '⏸';
+    }).catch(() => {
+      musicToggle.textContent = '🔇';
+      setTimeout(() => musicToggle.textContent = '🎵', 1400);
+    });
+  } else {
+    bgMusic.pause();
+    playing = false;
+    musicToggle.textContent = '🎵';
+  }
+});
+
+// ---------- Ambient floating hearts/sparkles ----------
+const ambient = document.getElementById('ambient');
+const symbols = ['💗','💕','✨','🩷','💖'];
+function spawnFloaty(container, sizeMin, sizeMax){
+  const el = document.createElement('span');
+  el.className = 'floaty';
+  el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+  const size = sizeMin + Math.random()*(sizeMax-sizeMin);
+  el.style.fontSize = size + 'px';
+  el.style.left = Math.random()*100 + 'vw';
+  el.style.setProperty('--drift', (Math.random()*140-70) + 'px');
+  const duration = 9 + Math.random()*10;
+  el.style.animationDuration = duration + 's';
+  container.appendChild(el);
+  setTimeout(() => el.remove(), duration*1000);
+}
+setInterval(() => spawnFloaty(ambient, 14, 26), 900);
+for(let i=0;i<8;i++) setTimeout(()=>spawnFloaty(ambient,14,26), i*300);
+
+// ---------- Scroll reveal ----------
+const revealTargets = document.querySelectorAll('.reveal, .t-item, .reason-card');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.18});
+revealTargets.forEach(t => io.observe(t));
+
+// ---------- Parallax on hero locket ----------
+const locket = document.querySelector('.locket');
+document.getElementById('hero').addEventListener('mousemove', (e) => {
+  const {innerWidth:w, innerHeight:h} = window;
+  const x = (e.clientX/w - 0.5) * 16;
+  const y = (e.clientY/h - 0.5) * 16;
+  locket.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// ---------- Lightbox ----------
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+document.querySelectorAll('.m-item[data-full]').forEach(item => {
+  item.addEventListener('click', () => {
+    lightboxImg.src = item.getAttribute('data-full');
+    lightbox.classList.add('open');
+  });
+});
+document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('open'); });
+
+// ---------- Quotes ----------
+const quotes = [
+  "کنار تو، زمان یک شکل دیگه معنا پیدا می‌کنه.",
+  "قلب من یک آدرس بیشتر نداره؛ همون‌جایی که تو هستی.",
+  "بودن با تو، ساده‌ترین و زیباترین تصمیم زندگیمه.",
+  "هر روز که می‌گذره، دلیل تازه‌ای برای دوست داشتنت پیدا می‌کنم.",
+  "تو آرامشی هستی که هیچ‌وقت فکر نمی‌کردم پیدا کنم.",
+  "دستای تو، امن‌ترین جای دنیاست.",
+  "با تو حتی سکوت هم حرف قشنگی داره.",
+  "تو باعث شدی «ما» زیباترین کلمه زندگیم بشه.",
+  "هر خاطره‌ای که با تو دارم، توی قلبم قاب شده.",
+  "دوست داشتن تو، ساده‌ترین کار سخت دنیاست؛ ساده چون از ته دله، سخت چون هیچ‌وقت تموم نمی‌شه."
+];
+const quotesGrid = document.getElementById('quotesGrid');
+quotes.forEach(q => {
+  const div = document.createElement('div');
+  div.className = 'quote-card reveal';
+  div.innerHTML = `<span class="quote-mark">"</span>${q}`;
+  quotesGrid.appendChild(div);
+});
+document.querySelectorAll('#quotesGrid .quote-card').forEach(el => io.observe(el));
+
+// ---------- Falling hearts on final section ----------
+const fallingContainer = document.getElementById('fallingHearts');
+let fallingActive = false;
+const finalObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    fallingActive = entry.isIntersecting;
+  });
+}, {threshold:0.2});
+finalObserver.observe(document.getElementById('finalSection'));
+
+function spawnFalling(){
+  if(!fallingActive) return;
+  const el = document.createElement('span');
+  el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+  el.style.position = 'absolute';
+  el.style.top = '-40px';
+  el.style.left = Math.random()*100 + '%';
+  el.style.fontSize = (14 + Math.random()*20) + 'px';
+  el.style.opacity = 0.85;
+  el.style.transition = `transform ${4+Math.random()*3}s linear, opacity 1s linear`;
+  fallingContainer.appendChild(el);
+  requestAnimationFrame(() => {
+    el.style.transform = `translateY(${window.innerHeight}px) translateX(${(Math.random()*100-50)}px) rotate(${Math.random()*360}deg)`;
+    el.style.opacity = 0;
+  });
+  setTimeout(() => el.remove(), 8000);
+}
+setInterval(spawnFalling, 350);
+</script>
+</body>
+</html>
