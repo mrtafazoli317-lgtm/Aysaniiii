@@ -185,37 +185,28 @@ section{position:relative;z-index:3;padding:130px 6vw;}
   font-size:1.1rem;line-height:2;
 }
 
-/* Hero locket - signature element */
-.locket{
+/* Hero heart - signature element (no photos) */
+.hero-heart{
   margin-top:56px;position:relative;
-  width:min(560px,86vw);height:340px;
+  width:130px;height:130px;
   display:flex;align-items:center;justify-content:center;
 }
-.locket-frame{
-  position:absolute;
-  width:230px;height:290px;
-  border-radius:20px;
-  background:var(--white);
-  padding:14px 14px 34px;
-  box-shadow:var(--shadow-soft);
-  border:1px solid var(--glass-border);
-  transition:transform .5s var(--ease);
+.hero-heart .hh{
+  width:90px;height:90px;position:relative;transform:rotate(45deg);
+  animation:heartbeat 2.4s ease-in-out infinite;
 }
-.locket-frame img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
-.locket-frame .cap{
-  position:absolute;bottom:8px;left:0;right:0;text-align:center;
-  font-family:var(--font-display);color:var(--plum-soft);font-size:.9rem;
+.hero-heart .hh::before,.hero-heart .hh::after{
+  content:'';position:absolute;width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rose),var(--gold));
 }
-.locket-frame.a{transform:rotate(-9deg) translateX(-58px);z-index:2;}
-.locket-frame.b{transform:rotate(7deg) translateX(58px);z-index:1;}
-.locket:hover .locket-frame.a{transform:rotate(-13deg) translateX(-68px) translateY(-6px);}
-.locket:hover .locket-frame.b{transform:rotate(11deg) translateX(68px) translateY(-6px);}
-.locket-heart{
-  position:absolute;z-index:3;top:-18px;
-  font-size:2rem;filter:drop-shadow(0 8px 14px rgba(232,68,122,.35));
-  animation:bob 3.4s ease-in-out infinite;
+.hero-heart .hh::before{left:-45px;}
+.hero-heart .hh::after{top:-45px;}
+.hero-heart .ring{
+  position:absolute;inset:-16px;border-radius:50%;
+  border:1px dashed var(--rose);opacity:.5;
+  animation:spinSlow 14s linear infinite;
 }
-@keyframes bob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(6deg);}}
+@keyframes spinSlow{to{transform:rotate(360deg);}}
 
 .scroll-cue{
   margin-top:58px;
@@ -422,16 +413,9 @@ footer{
   <h1 class="hero-title">تو، زیباترین <span>اتفاق</span> زندگی منی</h1>
   <p class="hero-subtitle">این صفحه رو با تمام دلم برات ساختم؛ یک گوشه کوچیک از دنیای بزرگی که تو توی قلب من داری.</p>
 
-  <div class="locket">
-    <div class="locket-heart">💗</div>
-    <div class="locket-frame a">
-      <img src="photo1.jpg" alt="خاطره عزیز">
-      <div class="cap">یکی از قشنگ‌ترین خاطره‌ها</div>
-    </div>
-    <div class="locket-frame b">
-      <img src="photo2.jpg" alt="لبخند تو">
-      <div class="cap">لبخند تو، دنیای من</div>
-    </div>
+  <div class="hero-heart">
+    <div class="ring"></div>
+    <div class="hh"></div>
   </div>
 
   <a href="#story" class="scroll-cue">
@@ -621,15 +605,6 @@ const io = new IntersectionObserver((entries) => {
   });
 }, {threshold:0.18});
 revealTargets.forEach(t => io.observe(t));
-
-// ---------- Parallax on hero locket ----------
-const locket = document.querySelector('.locket');
-document.getElementById('hero').addEventListener('mousemove', (e) => {
-  const {innerWidth:w, innerHeight:h} = window;
-  const x = (e.clientX/w - 0.5) * 16;
-  const y = (e.clientY/h - 0.5) * 16;
-  locket.style.transform = `translate(${x}px, ${y}px)`;
-});
 
 // ---------- Quotes ----------
 const quotes = [
